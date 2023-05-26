@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg"
+      data-sidebar-image="none" data-preloader="disable">
+
+
+<head>
+
+    <meta charset="utf-8"/>
+    <title>Innovation Concept Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Innovation Concept Admin Dashboard" name="description"/>
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+    <!-- jsvectormap css -->
+    <link href="assets/libs/jsvectormap/css/jsvectormap.min.css" rel="stylesheet" type="text/css"/>
+
+    <!--Swiper slider css-->
+    <link href="assets/libs/swiper/swiper-bundle.min.css" rel="stylesheet" type="text/css"/>
+
+    <!-- Layout config Js -->
+    <script src="assets/js/layout.js"></script>
+    <!-- Bootstrap Css -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <!-- Icons Css -->
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css"/>
+    <!-- App Css-->
+    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css"/>
+    <!-- custom Css-->
+    <link href="assets/css/custom.min.css" rel="stylesheet" type="text/css"/>
+
+</head>
+
+<body>
+
+<!-- Begin page -->
+<div id="layout-wrapper">
+
+
+    <header id="page-topbar">
+        <div class="layout-width">
+            <div class="navbar-header">
+                <div class="d-flex">
+                    <!-- LOGO -->
+                    <div class="navbar-brand-box horizontal-logo">
+                        <a href="#" class="logo logo-dark">
+                        <span class="logo-sm">
+                            <img src="{% static 'assets/images/logo-sm.png' %}" alt="" height="22">
+                        </span>
+                            <span class="logo-lg">
+                            <img src="{% static 'assets/images/logo-dark.png' %}" alt="" height="17">
+                        </span>
+                        </a>
+
+                        <a href="#" class="logo logo-light">
+                        <span class="logo-sm">
+                            <img src="{% static 'assets/images/logo-sm.png' %}" alt="" height="22">
+                        </span>
+                            <span class="logo-lg">
+                            <img src="{% static 'assets/images/logo-light.png' %}" alt="" height="17">
+                        </span>
+                        </a>
+                    </div>
+
+                    <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger"
+                            id="topnav-hamburger-icon">
+                    <span class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                    </button>
+
+
+                </div>
+
+
+                <div class="d-flex align-items-center">
+
+                    <div class="dropdown d-md-none topbar-head-dropdown header-item">
+                        <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle"
+                                id="page-header-search-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                            <i class="bx bx-search fs-22"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                             aria-labelledby="page-header-search-dropdown">
+                            <form class="p-3">
+                                <div class="form-group m-0">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Search ..."
+                                               aria-label="Recipient's username">
+                                        <button class="btn btn-primary" type="submit"><i class="mdi mdi-magnify"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+                    <!--                    <div class="ms-1 header-item d-none d-sm-flex">
+                                            <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle"
+                                                    data-toggle="fullscreen">
+                                                <i class='bx bx-fullscreen fs-22'></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="ms-1 header-item d-none d-sm-flex">
+                                            <button type="button"
+                                                    class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle light-dark-mode">
+                                                <i class='bx bx-moon fs-22'></i>
+                                            </button>
+                                        </div>-->
+
+
+                    <div class="dropdown ms-sm-3 header-item topbar-user">
+                        <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                        <span class="d-flex align-items-center">
+                            <img class="rounded-circle header-profile-user"
+                                 src="http://rovercarclubaust.asn.au/wp-content/uploads/2015/01/rccabadge.jpg"
+                                 alt="Header Avatar">
+                            <span class="text-start ms-xl-2">
+                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">Admin</span>
+                            </span>
+                        </span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <!-- item-->
+                            <a class="dropdown-item" href="pages-profile.html"><i
+                                    class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span
+                                    class="align-middle">Profile</span></a>
+                            <a class="dropdown-item" href="auth-logout-basic.html"><i
+                                    class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span
+                                    class="align-middle" data-key="t-logout">Logout</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- ========== App Menu ========== -->
+
+    <div class="app-menu navbar-menu">
+
+        <br>
+        <br>
+        <!-- LOGO -->
+        <div class="navbar-brand-box">
+            <!-- Dark Logo-->
+            <a href="#" class="logo logo-dark">
+                    <span class="logo-sm">
+                        <img src="{% static 'assets/images/logo-sm.png' %}" alt="" height="22">
+                    </span>
+                <span class="logo-lg">
+                        <img src="{% static 'assets/images/logo-dark.png' %}" alt="" height="17">
+                    </span>
+            </a>
+            <!-- Light Logo-->
+            <a href="#" class="logo logo-light">
+                <!--                    <span class="logo-sm">-->
+                <!--                        <img src="http://rovercarclubaust.asn.au/wp-content/uploads/2015/01/rccabadge.jpg" alt="" height="22">-->
+                <!--                    </span>-->
+                <span class="logo-lg">
+                        <img src="/static/asset/adminLogo.png" style="width:150px; height:150px" alt="">
+                    </span>
+            </a>
+            <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover"
+                    id="vertical-hover">
+                <i class="ri-record-circle-line"></i>
+            </button>
+        </div>
+
+
+        <div id="scrollbar">
+            <br>
+
+            <div class="container-fluid">
+
+                <div id="two-column-menu">
+                </div>
+                <ul class="navbar-nav" id="navbar-nav">
+
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="http://localhost:8080/submission.html">
+                            <i class="ri-dashboard-2-line"></i> <span>Item List</span>
+                        </a>
+
+                    </li>
+                    <!--                    <li class="nav-item">-->
+                    <!--                        <a class="nav-link menu-link" href="http://localhost:8080/submission.html" >-->
+                    <!--                            <i class="ri-dashboard-2-line"></i> <span >Item List</span>-->
+                    <!--                        </a>-->
+
+                    <!--                    </li>-->
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="http://localhost:8080/edit.html">
+                            <i class="ri-dashboard-2-line"></i> <span>Create a Record</span>
+                        </a>
+
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="http://localhost:8080/admin/logout">
+                            <i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span>Logout</span>
+                        </a>
+
+                    </li> <!-- end Dashboard Menu -->
+
+                </ul>
+            </div>
+            <!-- Sidebar -->
+        </div>
+
+        <div class="sidebar-background"></div>
+    </div>
+    <!-- Left Sidebar End -->
+    <!-- Vertical Overlay-->
+    <div class="vertical-overlay"></div>
+
+</div>
+
+<!-- Content-->
+<!-- inner style -->
+<style type="text/css">
+    form {
+        margin: 40px auto;
+        width: 800px;
+        padding: 25px;
+        border: 3px solid #999;
+    }
+
+    input[type="file"] {
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="main-content">
+
+
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header align-items-center d-flex" style="background-color: lightgreen">
+                            <h4 class="card-title mb-0 flex-grow-1">Record Detail</h4>
+
+                        </div><!-- end card header -->
+
+                        <div class="card-body">
+                            <div class="table-responsive table-card">
+
+                                <!--            ====================================  FORM  ==================-->
+                                <form action="/admin/save" method="post" modelAttribute="item"
+                                      enctype="multipart/form-data">
+
+
+                                    <a class="btn btn-primary" id="view" style="display: none" onclick="openFileInAdmin()" role="button">Open File</a>
+                                    <br/>
+
+
+                                    <div id="upload">
+                                        <label for="file">Choose a file to upload:</label>
+                                        <input type="file" name="file" id="file"/>
+                                    </div>
+
+                                    <select
+                                            id="type"
+                                            name="type"
+                                            class="form-select form-select-lg mb-3"
+                                            aria-label=".form-select-lg example"
+                                    >
+                                        <option value="AdvertisementJournal" selected>Advertisement Journal</option>
+                                        <option value="AdvertisementNewspaper">Advertisement Newspaper</option>
+                                        <option value="ArticleJournal">Article Journal</option>
+                                        <option value="ArticleNewspaper">Article Newspaper</option>
+                                        <option value="BookHistorical">Book Historical</option>
+                                        <option value="BookTechnical">Book Technical</option>
+                                        <option value="PhotographCommercial">Photograph Commercial</option>
+                                        <option value="PhotographPersonal">Photograph Personal</option>
+                                        <option value="SalesBrochure">Sales Brochure</option>
+                                        <option value="SalesRecord">Sales Record</option>
+                                    </select>
+
+                                    <div class="row mb-3">
+                                        <label for="contributor" class="col-sm-3 col-form-label">Contributor:</label>
+                                        <div class="col-sm-9">
+                                            <input
+                                                    type="text"
+                                                    name="contributor"
+                                                    id="contributor"
+                                                    class="form-control"
+                                                    placeholder="Contributor's name"
+                                                    required="required"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="creator_email" class="col-sm-3 col-form-label">Contributor
+                                            Email:</label>
+                                        <div class="col-sm-9">
+                                            <input
+                                                    type="email"
+                                                    name="creator_email"
+                                                    id="creator_email"
+                                                    class="form-control"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="title" class="col-sm-3 col-form-label">Title:</label>
+                                        <div class="col-sm-9">
+                                            <input
+                                                    type="text"
+                                                    name="title"
+                                                    id="title"
+                                                    class="form-control"
+                                                    placeholder="title"
+                                                    required="required"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="car_model" class="col-sm-3 col-form-label">Car Model:</label>
+                                        <div class="col-sm-9">
+                                            <input
+                                                    type="text"
+                                                    name="car_model"
+                                                    id="car_model"
+                                                    class="form-control"
+                                                    placeholder="Model of the car"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="publisher" class="col-sm-3 col-form-label">Publisher:</label>
+                                        <div class="col-sm-9">
+                                            <input
+                                                    type="text"
+                                                    name="publisher"
+                                                    id="publisher"
+                                                    class="form-control"
+                                                    placeholder="Publisher"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="description" class="col-sm-3 col-form-label">Description:</label>
+                                        <div class="col-sm-9">
+                                            <input
+                                                    type="text"
+                                                    name="description"
+                                                    id="description"
+                                                    class="form-control"
+                                                    placeholder="required"
+                                                    required="required"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="creator" class="col-sm-3 col-form-label">Creator:</label>
+                                        <div class="col-sm-9">
+                                            <input
+                                                    type="text"
+                                                    name="creator"
+                                                    id="creator"
+                                                    class="form-control"
+                                                    placeholder="Creator"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="identifier" class="col-sm-3 col-form-label">Identifier:</label>
+                                        <div class="col-sm-9">
+                                            <input
+                                                    type="text"
+                                                    name="identifier"
+                                                    id="identifier"
+                                                    class="form-control"
+                                                    placeholder=""
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="language" class="col-sm-3 col-form-label">Language:</label>
+                                        <div class="col-sm-9">
+                                            <input
+                                                    type="text"
+                                                    name="language"
+                                                    id="language"
+                                                    class="form-control"
+                                                    placeholder="Language"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="publish_date" class="col-sm-3 col-form-label">Date:</label>
+                                        <div class="col-sm-9">
+                                            <input
+                                                    type="text"
+                                                    name="publish_date"
+                                                    id="publish_date"
+                                                    class="form-control"
+                                                    placeholder="dd/mm/yyyy"
+                                            />
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row mb-3">
+                                        <label for="rights" class="col-sm-3 col-form-label">Rights:</label>
+                                        <div class="col-sm-9">
+                                            <input
+                                                    type="text"
+                                                    name="rights"
+                                                    id="rights"
+                                                    class="form-control"
+                                                    placeholder="optional"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="source" class="col-sm-3 col-form-label">Source:</label>
+                                        <div class="col-sm-9">
+                                            <input
+                                                    type="text"
+                                                    name="source"
+                                                    id="source"
+                                                    class="form-control"
+                                                    placeholder="optional"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="subject" class="col-sm-3 col-form-label">Subject:</label>
+                                        <div class="col-sm-9">
+                                            <input
+                                                    type="text"
+                                                    name="subject"
+                                                    id="subject"
+                                                    class="form-control"
+                                                    placeholder="optional"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div style="display: none">
+                                        <div>
+                                            <input type="text" name="rid" id="rid"/>
+                                        </div>
+                                    </div>
+                                    <div style="display: none">
+                                        <div>
+                                            <input type="text" name="status" id="status"/>
+                                        </div>
+                                    </div>
+                                    <div style="display: none">
+                                        <div>
+                                            <input type="text" name="file_path" id="file_path"/>
+                                        </div>
+                                    </div>
+                                    <div style="display: none">
+                                        <div>
+                                            <input type="text" name="file_format" id="file_format"/>
+                                        </div>
+                                    </div>
+
+                                    <input type="submit" value="Upload" class="btn btn-success"/>
+                                </form>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<p id="invFile" style="display: none"></p>
+
+
+
+<!--start back-to-top-->
+<button onclick="topFunction()" class="btn btn-danger btn-icon" id="back-to-top">
+    <i class="ri-arrow-up-line"></i>
+</button>
+<!--end back-to-top-->
+
+
+<footer class="footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <script>document.write(new Date().getFullYear())</script>
+                © Innovation Concept.
+            </div>
+            <div class="col-sm-6">
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- end main content-->
+
+<script>
+    // 检查页面URL是否包含特定参数，例如 user_id
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get('rid');
+    console.log(userId);
+
+
+    function openFileInAdmin() {
+        console.log("--------------onclick open file-----------------")
+        window.open(document.getElementById('invFile').value, 'newwindow', 'width=5000,height=3000,screenX=300,screenY=100');
+    }
+
+
+
+    // 如果存在 user_id 参数，发送请求获取用户信息
+    if (userId) {
+        fetch(`/admin/get/${userId}`)
+            .then(response => response.json())
+            .then(data => {
+                // 将返回的用户信息填充到表单中
+                console.log(data)
+
+                const view = document.getElementById('view');
+                view.style.display = 'block';
+                const upload = document.getElementById('upload');
+                upload.style.display = 'none';
+
+                //调用openFileInAdmin函数
+                openFileInAdmin2();
+                function openFileInAdmin2() {
+                    document.getElementById('invFile').value = data.file_path;
+                }
+
+                document.getElementById('rid').value = data.rid;
+                document.getElementById('creator').value = data.creator;
+                document.getElementById('creator_email').value = data.creator_email;
+                document.getElementById('title').value = data.title;
+                document.getElementById('description').value = data.description;
+                document.getElementById('publish_date').value = data.publish_date;
+                document.getElementById('rights').value = data.rights;
+                document.getElementById('source').value = data.source;
+                document.getElementById('subject').value = data.subject;
+                document.getElementById('identifier').value = data.identifier;
+                document.getElementById('language').value = data.language;
+                document.getElementById('status').value = data.status;
+                document.getElementById('type').value = data.type;
+                document.getElementById('file_path').value = data.file_path;
+                document.getElementById('file_format').value = data.file_format;
+                document.getElementById('contributor').value = data.contributor;
+                document.getElementById('car_model').value = data.car_model;
+                document.getElementById('publisher').value = data.publisher;
+            });
+    }
+</script>
+
+
+<!--start back-to-top-->
+<button onclick="topFunction()" class="btn btn-danger btn-icon" id="back-to-top">
+    <i class="ri-arrow-up-line"></i>
+</button>
+<!--end back-to-top-->
+
+<!-- JAVASCRIPT -->
+<script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="assets/libs/simplebar/simplebar.min.js"></script>
+<script src="assets/libs/node-waves/waves.min.js"></script>
+<script src="assets/libs/feather-icons/feather.min.js"></script>
+<script src="assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
+<script src="assets/js/plugins.js"></script>
+
+<!-- apexcharts -->
+<script src="assets/libs/apexcharts/apexcharts.min.js"></script>
+
+<!-- Vector map-->
+<script src="assets/libs/jsvectormap/js/jsvectormap.min.js"></script>
+<script src="assets/libs/jsvectormap/maps/world-merc.js"></script>
+
+<!--Swiper slider js-->
+<script src="assets/libs/swiper/swiper-bundle.min.js"></script>
+
+<!-- Dashboard init -->
+<script src="assets/js/pages/dashboard-ecommerce.init.js"></script>
+
+<!-- App js -->
+<script src="assets/js/app.js"></script>
+</body>
+
+
+</html>

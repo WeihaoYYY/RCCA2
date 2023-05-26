@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Item List</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<h1>Item List</h1>
+
+
+<form id="userForm" action="/admin/saving" method="post">
+    <input id="aid" name="aid" placeholder="rid">
+    <input type="text" id="usernameInput" name="name" placeholder="Username">
+    <input type="text" id="emailInput" name="answer" placeholder="answer">
+    <!-- 其他表单字段... -->
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+    // 发起 AJAX 请求获取用户信息
+    fetch('/admin/raw')
+        .then(response => response.json())
+        .then(user => {
+            console.log(user);
+            // 将用户信息填充到表单中
+            document.getElementById('usernameInput').value = user.name;
+            document.getElementById('emailInput').value = user.answer;
+            document.getElementById('aid').value = user.aid;
+            // 填充其他表单字段...
+        });
+</script>
+
+
+</body>
+</html>
+<script>
+
+</script>
+
