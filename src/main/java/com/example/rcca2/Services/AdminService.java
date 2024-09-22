@@ -1,6 +1,6 @@
 package com.example.rcca2.Services;
 
-import com.example.rcca2.Entities.AdminRepository;
+import com.example.rcca2.Repository.AdminRepository;
 import com.example.rcca2.Entities.Administrator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

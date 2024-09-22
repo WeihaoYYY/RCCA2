@@ -1,8 +1,7 @@
 package com.example.rcca2.Services;
 
-import com.example.rcca2.Entities.Administrator;
 import com.example.rcca2.Entities.Item;
-import com.example.rcca2.Entities.ItemRepository;
+import com.example.rcca2.Repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -57,6 +56,7 @@ public class ItemService {
 
     public List<Item> searchItemsByType(String type, String title) {
         title = "%" + title + "%";
-        return repo.searchItemsByStatusEqualsAndTypeAndTitleLike(1, type, title);
+        //return repo.searchItemsByStatusEqualsAndTypeAndTitleLike(1, type, title);
+        return null;
     }
 }

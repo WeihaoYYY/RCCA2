@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Data
@@ -18,13 +19,15 @@ public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long rid = 0L;
+    private Long sid = 0L;
 
     private String contributor;
 
-    private String creator;
+    private String uid;  //
 
-    private String creator_email;
+    private String author;
+
+    private String email;
 
     private String title;
 
@@ -32,36 +35,30 @@ public class Item {
 
     private String source;
 
-    private String car_model;
+    private String make;  //Toyota, Honda, etc.
+
+    private String model;  //Camry, Accord, etc.
+
+    private String year;  //2019, 2020, etc.
+
+    private String category;  //Sedan, SUV, etc.
+
+    private String engine;  //2.5L, 3.5L, hybrid etc.
 
     private String file_format;
 
-    private String subject;
-
-    private String identifier;
-
-    private String language;
-
-    private String publisher;
-
-    private String relation;
-
-    private String rights;
-
-    private String type;
-
-    private String publish_date;
+    private Date publish_date;
 
     private int status = 0;
 
     private String approved_date;
 
-    private String last_updated_date;
+    private Date last_updated_date;
 
     private String file_path;
 
     public Item(String creator, String title, String description) {
-        this.creator = creator;
+        this.author = creator;
         this.title = title;
         this.description = description;
     }

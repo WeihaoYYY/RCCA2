@@ -1,5 +1,6 @@
-package com.example.rcca2.Entities;
+package com.example.rcca2.Repository;
 
+import com.example.rcca2.Entities.Administrator;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

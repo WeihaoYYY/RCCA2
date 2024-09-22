@@ -28,7 +28,6 @@ import java.util.List;
 
 @Slf4j
 @Controller
-@RequestMapping("/item")
 //@PermitAll
 public class ItemController {
 
@@ -41,7 +40,7 @@ public class ItemController {
 
     @RequestMapping("/index")
     public String index(ModelMap modelMap) {
-        //modelMap.addAttribute("list", itemService.findApp());
+        modelMap.addAttribute("list", itemService.findApp());
         return "index";
     }
 
@@ -131,8 +130,8 @@ public class ItemController {
         return "hello";
     }
 
-    @RequestMapping("/detail")
-    public ModelAndView detail(@RequestParam Long id) {
+    @GetMapping("/detail/{id}")
+    public ModelAndView detail(@PathVariable Long id) {
         ModelAndView mav = new ModelAndView("/detail");
         mav.addObject("ad", itemService.findById(id));
         return mav;

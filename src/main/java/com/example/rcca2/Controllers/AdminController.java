@@ -34,11 +34,12 @@ import java.util.List;
 @ResponseBody
 public class AdminController {
 
-    @Autowired
+/*    @Autowired
     private AdminService adminService;
     @Autowired
-    private ItemService itemService;
+    private ItemService itemService;*/
 
+/*
     @GetMapping("/hi/{rid}")
     public String hi(@PathVariable("rid") Long id) {
         System.out.println(id);
@@ -182,6 +183,7 @@ public class AdminController {
     public RedirectView edit(@PathVariable("id") Long id) {
         return new RedirectView("http://localhost:8080/edit.html?rid=" + id);
     }
+*/
 
 
 }
