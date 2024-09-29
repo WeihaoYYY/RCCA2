@@ -23,7 +23,7 @@ public class Item {
 
     private String contributor;
 
-    private String uid;  //
+    private Long uid;  //published user ID
 
     private String author;
 
@@ -54,6 +54,10 @@ public class Item {
     private String approved_date;
 
     private Date last_updated_date;
+
+    private Long approved_by;
+
+    private String file_name;
 
     private String file_path;
 

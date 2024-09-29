@@ -28,6 +28,7 @@ import java.util.List;
 
 @Slf4j
 @Controller
+@RequestMapping("/item")
 //@PermitAll
 public class ItemController {
 
@@ -130,10 +131,11 @@ public class ItemController {
         return "hello";
     }
 
+
     @GetMapping("/detail/{id}")
     public ModelAndView detail(@PathVariable Long id) {
         ModelAndView mav = new ModelAndView("/detail");
-        mav.addObject("ad", itemService.findById(id));
+        mav.addObject("ad", itemService.findItemDetailsByID(id));
         return mav;
     }
 

@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //            String password = users.getPassword();
 //            PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 //            String passwordAfterEncoder = passwordEncoder.encode(password);
-//            //TODO 待测试role
+//            //TODO JWT
 //            return User.withUsername(username).password(passwordAfterEncoder).roles(loginService.findRoleByName(username)).build();
 //        };
 //    }

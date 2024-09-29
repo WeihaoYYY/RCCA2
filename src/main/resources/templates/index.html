@@ -97,7 +97,7 @@
           <div class="card-body">
             <h5 class="card-title">
               <!-- Link to the detailed page -->
-              <a th:href="@{/detail(id=${ad.sid})}" class="titlelink" th:text="${ad.title}">Title</a>
+              <a th:href="@{/item/detail/{id}(id=${ad.sid})}" class="titlelink" th:text="${ad.title}">Title</a>
             </h5>
             <p class="card-text">
               <small class="text-muted">Description: <span th:text="${ad.description}">Description</span></small>
