@@ -1,38 +1,37 @@
 package com.example.rcca2.Controllers;
 
-import com.example.rcca2.Entities.Administrator;
-import com.example.rcca2.Entities.Item;
-import com.example.rcca2.Services.AdminService;
-import com.example.rcca2.Services.ItemService;
 //import jakarta.annotation.security.RolesAllowed;
+import com.example.rcca2.Entities.Administrator;
+import com.example.rcca2.Entities.User;
+import com.example.rcca2.Repository.UserRepository;
+import com.example.rcca2.Services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.transaction.Transactional;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.Enumeration;
 import java.util.List;
 
 @Slf4j
-@RestController
+@Controller
 //@RolesAllowed("ADMIN")
-@RequestMapping("/admin")
-@ResponseBody
-public class AdminController {
+@RequestMapping("/user")
+public class UserController {
+
+    @Autowired
+    private UserService userService;
 
 /*    @Autowired
     private AdminService adminService;
@@ -99,24 +98,55 @@ public class AdminController {
         return redirectView;
     }
 
-    @GetMapping("/login")
-    public String login(@ModelAttribute("loginForm") Administrator admin) {
-        log.info("User : {}", admin);
-        String username = admin.getName();
-        String password = admin.getPassword();
 
-        password = DigestUtils.md5DigestAsHex(password.getBytes());
+@PostMapping("/login")
+public ResponseEntity<?> login(@RequestBody User user) {
+    String username = user.getName();
+    String password = user.getPassword();
+
+    // 对密码进行 MD5 加密
+    password = DigestUtils.md5DigestAsHex(password.getBytes());
+
+    // TODO: 验证用户名和密码的逻辑
+    if ("admin".equals(username) && "encrypted_password".equals(password)) { // 示例验证逻辑
+        // 验证通过，返回登录成功信息
+        return ResponseEntity.ok(userRepository.);
+    } else {
+        // 验证失败，返回错误信息
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+    }
+}*/
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(
+            @RequestParam Long username,
+            @RequestParam String password) {
+
+        // 打印用户名和密码
+        log.info("Username: {}, Password: {}", username, password);
+
+        // 对密码进行 MD5 加密
+        //password = DigestUtils.md5DigestAsHex(password.getBytes());
 
         // 验证用户名和密码
-
-//        // 如果验证成功，将用户信息存储到 session 中
-//        HttpSession session = request.getSession();
-//        session.setAttribute("username", username);
-
-        // 返回登录成功页面
-        return "redirect:/item/index";
+        //if ("admin".equals(username) && "encrypted_password".equals(password)) {
+        if(true){
+            return ResponseEntity.ok(userService.findDTOById(username));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+        }
     }
 
+    @GetMapping("/logout")
+    public RedirectView logout() {
+        SecurityContextHolder.clearContext();
+
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("http://localhost:8080/item/index");
+        return redirectView;
+    }
+
+    /*
     @GetMapping("/{type}/{keyword}")
     public List<Administrator> search(
             @PathVariable("type") String type,
@@ -129,14 +159,7 @@ public class AdminController {
         return itemService.findUnapp();
     }
 
-    @GetMapping("/logout")
-    public RedirectView logout() {
-        SecurityContextHolder.clearContext();
 
-        RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("http://localhost:8080/item/index");
-        return redirectView;
-    }
 
     @PostMapping("/saving")
     public void saving(@ModelAttribute("admin") Administrator admin) {

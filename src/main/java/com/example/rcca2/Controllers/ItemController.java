@@ -1,29 +1,23 @@
 package com.example.rcca2.Controllers;
 
-import com.example.rcca2.Entities.Administrator;
 import com.example.rcca2.Entities.Item;
-import com.example.rcca2.Services.AdminService;
+import com.example.rcca2.Services.UserService;
 import com.example.rcca2.Services.ItemService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.transaction.Transactional;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Slf4j
@@ -35,7 +29,7 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
     @Autowired
-    private AdminService adminService;
+    private UserService userService;
 
 
 
@@ -87,7 +81,6 @@ public class ItemController {
     }*/
 
     @PostMapping( "/jump")
-    @ResponseBody
     public void jump(@RequestParam("file") MultipartFile file) {
         if (!file.isEmpty()) {
             try {
@@ -126,12 +119,6 @@ public class ItemController {
     }
 
 
-    @RequestMapping("/hello")
-    public String hello() {
-        return "hello";
-    }
-
-
     @GetMapping("/detail/{id}")
     public ModelAndView detail(@PathVariable Long id) {
         ModelAndView mav = new ModelAndView("/detail");
@@ -139,7 +126,7 @@ public class ItemController {
         return mav;
     }
 
-    @RequestMapping("/search")
+    @GetMapping("/search")
     public ModelAndView search(@RequestParam String category, @RequestParam String search) {
         ModelAndView mav = new ModelAndView("/index");
         mav.addObject("list", itemService.searchItemsByType(category, search));
@@ -147,7 +134,7 @@ public class ItemController {
     }
 
     @Transactional
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @PostMapping(value = "/save")
     public String saveItem(@ModelAttribute("item") Item i, @RequestParam("file") MultipartFile file ) {
         System.out.println("-----------SAVING------------");
         System.out.println(i);

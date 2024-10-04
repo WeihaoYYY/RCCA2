@@ -10,26 +10,41 @@ import javax.persistence.*;
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "user")
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
 public class User{
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long aid = 0L;
+    private Long uid = 0L;
 
-    private String name;
+    private String Name;
 
     private String password;
+
+    private String email;
+
+    private String avatarUrl;
 
     private String security_question;
 
     private String answer;
 
-    private int role = 0;
+    private String role = "USER";
 
-//    @OneToOne(cascade = CascadeType.ALL)  //fetch = FetchType.LAZY
+    private boolean enabled = true;
+
+    public User(Long uid, String name, String password, String email, String avatarUrl, String security_question, String answer) {
+        this.uid = uid;
+        this.Name = name;
+        this.password = password;
+        this.email = email;
+        this.avatarUrl = avatarUrl;
+        this.security_question = security_question;
+        this.answer = answer;
+    }
+
+    //    @OneToOne(cascade = CascadeType.ALL)  //fetch = FetchType.LAZY
 //    private Administrator created_by;
 
 

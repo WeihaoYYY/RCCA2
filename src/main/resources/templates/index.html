@@ -22,6 +22,43 @@
 
 
 <body>
+<!--<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" th:href="@{/item/index}">
+      <img th:src="@{/assets/images/newLogo.png}" class="logo" alt="Logo"/>
+    </a>
+    <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" style="display: flex; justify-content: flex-end;">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0"> &lt;!&ndash; 使用 ms-auto 来自动调整左边距 &ndash;&gt;
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/item/ut1}">Upload</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-primary" th:href="@{/admin/index}">Admin Panel</a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</nav>-->
+<!-- JavaScript Libraries -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+<!-- Include navbar JavaScript file -->
+<script src="/assets/js/navbar.js"></script>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" th:href="@{/item/index}">
@@ -40,17 +77,57 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent" style="display: flex; justify-content: flex-end;">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0"> <!-- 使用 ms-auto 来自动调整左边距 -->
-        <li class="nav-item">
-          <a class="nav-link" th:href="@{/item/ut1}">Upload</a>
+        <!-- Login Button -->
+        <li class="nav-item" id="loginBtnContainer">
+          <button class="btn btn-primary" onclick="showLoginModal()">Login</button>
         </li>
-        <li class="nav-item">
-          <a class="btn btn-primary" th:href="@{/admin/index}">Admin Panel</a>
+
+        <!-- User Dropdown (Initially hidden) -->
+        <li class="nav-item dropdown" id="userDropdown" style="display: none;">
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdownLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img id="userAvatar" src="/assets/images/default-avatar.png" alt="Avatar" style="width: 30px; border-radius: 50%;"> <span id="userName">User</span>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="userDropdownLink">
+            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+            <li><a class="dropdown-item" href="#" onclick="logout()">Logout</a></li>
+          </ul>
+        </li>
+
+        <!-- Admin Panel Button -->
+        <li class="nav-item" id="adminPanel">
+          <a class="btn btn-danger" th:href="@{/admin/index}">Admin Panel</a>
         </li>
       </ul>
     </div>
-
   </div>
 </nav>
+
+<!-- Login Modal -->
+<div id="loginModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Login</h5>
+        <button type="button" class="btn-close" onclick="closeLoginModal()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="loginForm">
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" required>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" required>
+          </div>
+          <button type="button" class="btn btn-primary" onclick="login()">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 </body>
 
 
