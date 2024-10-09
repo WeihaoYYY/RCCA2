@@ -29,6 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .antMatchers("/assets/**", "/images/**").permitAll()
                 .antMatchers("/user/login").permitAll() // 公开访问的路径
                 .antMatchers("/item/**").permitAll() // 公开访问的路径
                 .anyRequest().authenticated() // 其他请求需要认证

@@ -3,6 +3,7 @@ package com.example.rcca2.Controllers;
 import com.example.rcca2.Entities.Item;
 import com.example.rcca2.Services.UserService;
 import com.example.rcca2.Services.ItemService;
+import com.example.rcca2.common.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,11 +19,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 
 
 @Slf4j
-@Controller
-@RequestMapping("/item")
+@RestController
+@RequestMapping("/item")  //TODO 以后放到docker中
 //@PermitAll
 public class ItemController {
 
@@ -33,10 +35,9 @@ public class ItemController {
 
 
 
-    @RequestMapping("/index")
-    public String index(ModelMap modelMap) {
-        modelMap.addAttribute("list", itemService.findApp());
-        return "index";
+    @GetMapping("/index")
+    public R<List<Item>> index() {
+        return R.ok(itemService.findApp());
     }
 
 

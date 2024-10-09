@@ -54,6 +54,7 @@
 <!-- JavaScript Libraries -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/assets/js/item.js"></script>
 
 
 <!-- Include navbar JavaScript file -->
@@ -163,17 +164,24 @@
 </div>
 
 
-  <!-- Card List section -->
-  <!-- Output list of information via loop -->
+<!-- Card List Section -->
+<div class="container mt-5">
+  <div id="card-list" class="row">
+    <!-- 卡片列表将由 JavaScript 动态生成 -->
+  </div>
+</div>
+
+   Card List section
+   Output list of information via loop
 <th:block th:each="ad : ${list}">
   <div class="col d-flex justify-content-center">
     <div class="card mb-3 mt-3" style="width: 800px">
       <div class="row g-0">
-        <!-- Text content on the left side -->
+         Text content on the left side
         <div class="col-md-8">
           <div class="card-body">
             <h5 class="card-title">
-              <!-- Link to the detailed page -->
+               Link to the detailed page
               <a th:href="@{/item/detail/{id}(id=${ad.sid})}" class="titlelink" th:text="${ad.title}">Title</a>
             </h5>
             <p class="card-text">
@@ -187,7 +195,7 @@
           </div>
         </div>
 
-        <!-- Image on the right side -->
+         Image on the right side
         <div class="col-md-4">
           <th:block th:if="${#strings.toLowerCase(ad.file_format) == 'jpg' or #strings.toLowerCase(ad.file_format) == 'png'}">
             <div class="image-container">
