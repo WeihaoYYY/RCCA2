@@ -1,9 +1,11 @@
 package com.example.rcca2.Controllers;
 
+import com.example.rcca2.DTO.ItemDetailsDTO;
 import com.example.rcca2.Entities.Item;
 import com.example.rcca2.Services.UserService;
 import com.example.rcca2.Services.ItemService;
 import com.example.rcca2.common.R;
+import com.example.rcca2.tools.S3Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,10 +36,17 @@ public class ItemController {
     private UserService userService;
 
 
+    @GetMapping("/hi")
+    public String hi() {
+        S3Utils s3 = new S3Utils();
+        s3.createS3Client();
+        return "hi";
+    }
+
 
     @GetMapping("/index")
-    public R<List<Item>> index() {
-        return R.ok(itemService.findApp());
+    public R<List<ItemDetailsDTO>> index() {
+        return R.ok(itemService.homeList());
     }
 
 

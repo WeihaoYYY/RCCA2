@@ -9,7 +9,7 @@ public interface ItemService {
 
     List<Item> findUnapp();  // Find unapproved items
 
-    List<Item> findApp();  // Find approved items
+    List<ItemDetailsDTO> homeList();  // Find approved items
 
     List<Item> findAll();
 

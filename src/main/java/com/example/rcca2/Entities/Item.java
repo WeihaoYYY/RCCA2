@@ -51,6 +51,8 @@ public class Item {
 
     private int status = 0;
 
+    private String sourceType;
+
     private String approved_date;
 
     private Date last_updated_date;

@@ -1,5 +1,6 @@
 package com.example.rcca2.Services.Impl;
 
+import com.example.rcca2.Constants.S3Constants;
 import com.example.rcca2.DTO.ItemDetailsDTO;
 import com.example.rcca2.Entities.Item;
 import com.example.rcca2.Repository.ItemRepository;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,8 +30,13 @@ public class ItemServiceImpl implements ItemService {
         return repo.searchItemsByStatusEquals(0);
     }
 
-    public List<Item> findApp(){
-        return repo.searchItemsByStatusEquals(1);
+    public List<ItemDetailsDTO> homeList(){
+        List<Item> items = repo.searchItemsByStatusEquals(1);
+        List<ItemDetailsDTO> list = new ArrayList<>();
+        for (Item item : items) {
+            list.add(convertToDto(item));
+        }
+        return list;
     }
 
     public List<Item> findAll() {
@@ -89,6 +96,8 @@ public class ItemServiceImpl implements ItemService {
         dto.setTitle(item.getTitle());
         //dto.setUid(item.getUid());  //TODO 转换成User用户名
         dto.setYear(item.getYear());
+        dto.setSourceType(item.getSourceType());
+        dto.setUrl(S3Constants.S3_ENDPOINT + "/" + item.getFile_path() + item.getFile_name() + "." + item.getFile_format());
         return dto;
     }
 
