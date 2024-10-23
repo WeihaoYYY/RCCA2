@@ -11,7 +11,7 @@
     <groupId>com.example</groupId>
     <artifactId>RCCA2</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>RCCA2</name>
     <description>RCCA2</description>
     <properties>
