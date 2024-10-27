@@ -40,7 +40,7 @@ public class ItemController {
     public String hi() {
 //        S3Utils s3 = new S3Utils();
 //        s3.createS3Client();
-        return "hi";
+        return "testing";
     }
 
 
