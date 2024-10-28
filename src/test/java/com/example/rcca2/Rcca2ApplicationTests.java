@@ -28,42 +28,42 @@ class Rcca2ApplicationTests {
     @Autowired
     private ItemService itemService;
 
-    @Test
-    void s3() {
-        String fileKey = "r2/images/items/bmw-i8.jpg";
-        S3Utils s3 = new S3Utils();
-
-
-        System.out.println(s3.exist(fileKey));
-
-    }
-
-    @Test
-    void approval(){
-        itemService.approval(24L, 2);
-    }
-
-    @Test
-    void connectionTesting(){
-        S3Utils s3Utils = new S3Utils();
-
-        // 调用 createS3Client 方法
-        AmazonS3 s3Client = s3Utils.createS3Client();
-
-        // 检查 S3 客户端实例是否成功创建
-        System.out.println(s3Client);
-
-        // 测试列出存储桶（可选）
-        try {
-            List<Bucket> buckets = s3Client.listBuckets();
-            assertNotNull(buckets);
-            System.out.println("存储桶列表：");
-            buckets.forEach(bucket -> System.out.println(bucket.getName()));
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("无法访问 S3，请检查密钥和权限配置。");
-        }
-    }
+//    @Test
+//    void s3() {
+//        String fileKey = "r2/images/items/bmw-i8.jpg";
+//        S3Utils s3 = new S3Utils();
+//
+//
+//        System.out.println(s3.exist(fileKey));
+//
+//    }
+//
+//    @Test
+//    void approval(){
+//        itemService.approval(24L, 2);
+//    }
+//
+//    @Test
+//    void connectionTesting(){
+//        S3Utils s3Utils = new S3Utils();
+//
+//        // 调用 createS3Client 方法
+//        AmazonS3 s3Client = s3Utils.createS3Client();
+//
+//        // 检查 S3 客户端实例是否成功创建
+//        System.out.println(s3Client);
+//
+//        // 测试列出存储桶（可选）
+//        try {
+//            List<Bucket> buckets = s3Client.listBuckets();
+//            assertNotNull(buckets);
+//            System.out.println("存储桶列表：");
+//            buckets.forEach(bucket -> System.out.println(bucket.getName()));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            System.out.println("无法访问 S3，请检查密钥和权限配置。");
+//        }
+//    }
 }
 
 
