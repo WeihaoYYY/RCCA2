@@ -34,9 +34,9 @@ jobs:
 
     - name: Deploy to EC2
       run: |
-        ssh -o "StrictHostKeyChecking=no" -i my-key.pem ${{ secrets.EC2_SSH_USER }}@${{ secrets.EC2_INSTANCE_IP }} << 'EOF'
+        ssh -o "StrictHostKeyChecking=no" -i my-key.pem ec2-user@<your-ec2-ip> << 'EOF'
           docker pull ${{ secrets.DOCKER_USERNAME }}/myapp:latest
           docker stop myapp || true
           docker rm myapp || true
-          docker run -d -p 80:80 --name myapp ${{ secrets.DOCKER_USERNAME }}/myapp:latest
+          docker run -d -p 80:80 -e RDS_USERNAME=admin -e RDS_PASSWORD=Yue2086329803. --name myapp ${{ secrets.DOCKER_USERNAME }}/myapp:latest
         EOF
