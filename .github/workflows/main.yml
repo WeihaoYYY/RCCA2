@@ -34,7 +34,7 @@ jobs:
 
     - name: Deploy to EC2
       run: |
-        ssh -o "StrictHostKeyChecking=no" -i my-key.pem ec2-user@${{ EC2_INSTANCE_IP }} << 'EOF'
+        ssh -o "StrictHostKeyChecking=no" -i my-key.pem ec2-user@${{ secrets.EC2_INSTANCE_IP }} << 'EOF'
           docker pull weihaodev/whdev:r2
           docker stop r2 || true
           docker rm r2 || true
