@@ -12,21 +12,45 @@ import com.example.rcca2.Entities.Item;
 import com.example.rcca2.Services.ItemService;
 import com.example.rcca2.tools.S3Utils;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
 
-
+import java.sql.SQLException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class Rcca2ApplicationTests {
 
+
     @Autowired
-    private ItemService itemService;
+    private DataSource dataSource;
+
+    @Test
+    public void testDatabaseConnection() throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            // Assert that connection is not null
+            assertNotNull(connection, "Connection should not be null");
+
+            // Assert that connection is valid
+            assertTrue(connection.isValid(2), "Connection should be valid within 2 seconds");
+
+            // Additional: Check database metadata (for example, database name)
+            String databaseProductName = connection.getMetaData().getDatabaseProductName();
+            System.out.println("Connected to: " + databaseProductName);
+            assertNotNull(databaseProductName, "Database product name should not be null");
+        }
+    }
 
 //    @Test
 //    void s3() {
