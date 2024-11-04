@@ -1,0 +1,43 @@
+name: Deploy to AWS EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build and push Docker image
+      run: |
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/myapp:latest .
+        docker push ${{ secrets.DOCKER_USERNAME }}/myapp:latest
+
+    - name: Create pem file
+      run: |
+        echo "${{ secrets.EC2_PEM_FILE }}" > my-key.pem
+        chmod 400 my-key.pem
+
+    - name: Deploy to EC2
+      run: |
+        ssh -o "StrictHostKeyChecking=no" -i my-key.pem ec2-user@${{ secrets.EC2_INSTANCE_IP }} << 'EOF'
+          docker pull weihaodev/whdev:r2
+          docker stop r2 || true
+          docker rm r2 || true
+          docker run -d -p 8081:8081 -e RDS_USERNAME=admin -e RDS_PASSWORD=Yue2086329803. --name r2 weihaodev/whdev:r2
+        EOF
+
