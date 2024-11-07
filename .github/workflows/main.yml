@@ -38,6 +38,7 @@ jobs:
           docker pull weihaodev/whdev:r2
           docker stop r2 || true
           docker rm r2 || true
+          docker rmi weihaodev/whdev:r2 || true
           docker run -d -p 8081:8081 -e RDS_USERNAME=admin -e RDS_PASSWORD=Yue2086329803. --name r2 weihaodev/whdev:r2
         EOF
 
