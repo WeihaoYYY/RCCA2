@@ -38,9 +38,9 @@ public class ItemController {
 
     @GetMapping("/hi")
     public String hi() {
-        S3Utils s3 = new S3Utils();
-        s3.createS3Client();
-        return "hi";
+//        S3Utils s3 = new S3Utils();
+//        s3.createS3Client();
+        return "testing";
     }
 
 
