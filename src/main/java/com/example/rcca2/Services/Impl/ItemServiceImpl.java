@@ -97,7 +97,7 @@ public class ItemServiceImpl implements ItemService {
         //dto.setUid(item.getUid());  //TODO 转换成User用户名
         dto.setYear(item.getYear());
         dto.setSourceType(item.getSourceType());
-        dto.setUrl(S3Constants.S3_ENDPOINT + "/" + item.getFile_path() + item.getFile_name() + "." + item.getFile_format());
+        dto.setUrl(S3Constants.S3_ENDPOINT + item.getFile_path());
         return dto;
     }
 
