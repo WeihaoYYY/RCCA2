@@ -2,8 +2,10 @@ package com.example.rcca2.Controllers;
 
 //import jakarta.annotation.security.RolesAllowed;
 import com.example.rcca2.Entities.Administrator;
+import com.example.rcca2.Entities.Item;
 import com.example.rcca2.Entities.User;
 import com.example.rcca2.Repository.UserRepository;
+import com.example.rcca2.Services.ItemService;
 import com.example.rcca2.Services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -32,13 +35,10 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-/*    @Autowired
-    private AdminService adminService;
     @Autowired
-    private ItemService itemService;*/
+    private ItemService itemService;
 
-/*
+
     @GetMapping("/hi/{rid}")
     public String hi(@PathVariable("rid") Long id) {
         System.out.println(id);
@@ -48,7 +48,7 @@ public class UserController {
     @GetMapping("/index")
     public RedirectView redirect() {
         RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("http://localhost:8080/submission.html");
+        redirectView.setUrl("/submission.html");
         return redirectView;
     }
 
@@ -57,6 +57,7 @@ public class UserController {
         return itemService.findAll();
     }
 
+/*
     public static void getUsername() {
         //Authentication是spring security中保存用户信息的对象，里面包含用户信息，权限信息，登录密码等。
         // 可以通过SecurityContextHolder来获取Authentication对象，然后再获取用户信息
@@ -118,31 +119,54 @@ public ResponseEntity<?> login(@RequestBody User user) {
 }*/
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(
-            @RequestParam Long username,
-            @RequestParam String password) {
+    public void login(
+            @RequestParam String username,
+            @RequestParam String password,
+            HttpServletResponse response) throws IOException {
 
         // 打印用户名和密码
         log.info("Username: {}, Password: {}", username, password);
 
         // 对密码进行 MD5 加密
-        //password = DigestUtils.md5DigestAsHex(password.getBytes());
+        // password = DigestUtils.md5DigestAsHex(password.getBytes());
 
         // 验证用户名和密码
-        //if ("admin".equals(username) && "encrypted_password".equals(password)) {
-        if(true){
-            return ResponseEntity.ok(userService.findDTOById(username));
+        if (userService.findByName(username) != null) {
+            // 重定向到 /item/index
+            response.sendRedirect("/user/index");
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+            // 设置未授权状态码，并返回消息
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("Invalid credentials");
         }
     }
+
+//    @PostMapping("/login")
+//    public ResponseEntity<?> login(
+//            @RequestParam String username,
+//            @RequestParam String password) {
+//
+//        // 打印用户名和密码
+//        log.info("Username: {}, Password: {}", username, password);
+//
+//        // 对密码进行 MD5 加密
+//        //password = DigestUtils.md5DigestAsHex(password.getBytes());
+//
+//        // 验证用户名和密码
+//        //if ("admin".equals(username) && "encrypted_password".equals(password)) {
+//        if(true){
+//            return ResponseEntity.ok(userService.findByName(username));
+//        } else {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+//        }
+//    }
 
     @GetMapping("/logout")
     public RedirectView logout() {
         SecurityContextHolder.clearContext();
 
         RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("http://localhost:8080/item/index");
+        redirectView.setUrl("http://localhost:8081/item/index");
         return redirectView;
     }
 

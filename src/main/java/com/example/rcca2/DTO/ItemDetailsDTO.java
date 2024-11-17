@@ -30,6 +30,4 @@ public class ItemDetailsDTO {
     private String year;
     private String url;
     private String sourceType;
-
-
 }

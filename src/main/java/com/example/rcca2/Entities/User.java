@@ -18,7 +18,7 @@ public class User{
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long uid = 0L;
 
-    private String Name;
+    private String name;
 
     private String password;
 
@@ -36,7 +36,7 @@ public class User{
 
     public User(Long uid, String name, String password, String email, String avatarUrl, String security_question, String answer) {
         this.uid = uid;
-        this.Name = name;
+        this.name = name;
         this.password = password;
         this.email = email;
         this.avatarUrl = avatarUrl;

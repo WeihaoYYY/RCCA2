@@ -2,14 +2,14 @@ package com.example.rcca2.Controllers;
 
 import com.example.rcca2.DTO.ItemDetailsDTO;
 import com.example.rcca2.Entities.Item;
+import com.example.rcca2.Entities.User;
 import com.example.rcca2.Services.UserService;
 import com.example.rcca2.Services.ItemService;
 import com.example.rcca2.common.R;
-import com.example.rcca2.tools.S3Utils;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,17 +36,48 @@ public class ItemController {
     private UserService userService;
 
 
+    @ApiOperation(value = "Say hi", notes = "Simple hello endpoint for testing purposes")
     @GetMapping("/hi")
-    public String hi() {
-//        S3Utils s3 = new S3Utils();
-//        s3.createS3Client();
-        return "testing";
+    public R hi() {
+        return R.ok("Hello, world!");
     }
 
 
+    @GetMapping("/aa")
+    public R a() {
+        return R.ok("Hello, world!");
+    }
+
+
+
+    @PostMapping("/user/login")
+    public R login(@RequestBody User user) {
+
+        return userService.login(user);
+    }
+
+    @RequestMapping("/user/logout")
+    public R logout() {
+        return userService.logout();
+    }
+
+
+    /*
+    * 1. 通过itemService调用homeList方法获取首页展示的item列表
+    * 2. 返回R对象，其中包含了ItemDetailsDTO列表
+     */
     @GetMapping("/index")
+    @ApiOperation(value = "Get item list for homepage", notes = "Fetches the list of items to be displayed on the homepage")
     public R<List<ItemDetailsDTO>> index() {
         return R.ok(itemService.homeList());
+    }
+
+
+    @ApiOperation(value = "Get item details by ID", notes = "Fetches details of an item based on its ID")
+    @GetMapping("/detail/{sid}")
+    public R<ItemDetailsDTO> detail(@ApiParam(value = "ID of the item to be fetched", required = true) @PathVariable Long sid) {
+        ItemDetailsDTO itemDetails = itemService.findItemDetailsByID(sid);
+        return itemDetails == null ? R.error("Item not found") : R.ok(itemDetails);
     }
 
 
@@ -129,12 +160,7 @@ public class ItemController {
     }
 
 
-    @GetMapping("/detail/{id}")
-    public ModelAndView detail(@PathVariable Long id) {
-        ModelAndView mav = new ModelAndView("/detail");
-        mav.addObject("ad", itemService.findItemDetailsByID(id));
-        return mav;
-    }
+
 
     @GetMapping("/search")
     public ModelAndView search(@RequestParam String category, @RequestParam String search) {
@@ -178,17 +204,4 @@ public class ItemController {
 
 
 }
-
-
-/*
-    1. Get Everything Working and ready before presentation
-    2. Don't change template, keywords in individual report
-    3. Breif explain in introduction
-    4. 可以适当加小标题，比如说介绍tech的时候，小标题hardware，小标题software，language
-    5. specification：methodology，
-    6. 一定要提供contribtion的证据
-    7. 不要复制粘贴任何
-    8. 记得还有个单独的peer review
-    9. Code demo: technology stack, language, database, a diagram of the architecture, screenshots of code
- */
 

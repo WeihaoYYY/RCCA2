@@ -5,6 +5,7 @@ import com.example.rcca2.DTO.ItemDetailsDTO;
 import com.example.rcca2.Entities.Item;
 import com.example.rcca2.Repository.ItemRepository;
 import com.example.rcca2.Services.ItemService;
+import com.example.rcca2.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,10 +22,13 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     ItemRepository repo;
 
+    @Autowired
+    UserService userService;
+
     public ItemDetailsDTO findItemDetailsByID(Long id) {
-        Item item = repo.findById(id).orElse(null);
-        return convertToDto(item);
+        return repo.findById(id).map(this::convertToDto).orElse(null);
     }
+
 
     public List<Item> findUnapp(){
         return repo.searchItemsByStatusEquals(0);
@@ -94,10 +98,10 @@ public class ItemServiceImpl implements ItemService {
         dto.setSource(item.getSource());
         dto.setStatus(item.getStatus());
         dto.setTitle(item.getTitle());
-        //dto.setUid(item.getUid());  //TODO 转换成User用户名
+        dto.setUid(userService.findById(item.getUid()).getName());
         dto.setYear(item.getYear());
         dto.setSourceType(item.getSourceType());
-        dto.setUrl(S3Constants.S3_ENDPOINT + item.getFile_path());
+        dto.setUrl(S3Constants.S3_ENDPOINT + item.getFile_path() + item.getFile_name());
         return dto;
     }
 
