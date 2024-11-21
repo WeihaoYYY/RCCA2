@@ -44,16 +44,17 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         User user = userRepo.getByName(username)
                 .orElse(null);
         if (user == null) {
-            throw new UsernameNotFoundException("User not found: " + username);
+            throw new UsernameNotFoundException("UserServiceImpl - User not found: " + username);
         }
 
         System.out.println(user);
         //如果查询不到数据就通过抛出异常来给出提示
         if(Objects.isNull(user)){
-            throw new RuntimeException("用户名或者密码错误123");
+            throw new RuntimeException("用户名或者密码错误123 - UserServiceImpl.loadUserByUsername");
         }
 
         //TODO 根据用户查询权限信息 添加到LoginUser中
+
 
         //如果找到对应用户，封装成UserDetails对象返回
         return new LoginUser(user);
@@ -90,7 +91,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         redisCache.setCacheObject("login:"+id, loginUser);
 
 
-        return R.ok("Login In Successful", map);
+        return R.ok("Login In Successful - UserServiceImpl", map);
 
     }
 
@@ -133,7 +134,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             userDetailsDTO.setUid(user.get().getUid());
             userDetailsDTO.setName(user.get().getName());
             userDetailsDTO.setEmail(user.get().getEmail());
-            userDetailsDTO.setRole(user.get().getRole());
             userDetailsDTO.setEnabled(user.get().isEnabled());
             userDetailsDTO.setAvatarUrl(user.get().getAvatarUrl());
             return userDetailsDTO;

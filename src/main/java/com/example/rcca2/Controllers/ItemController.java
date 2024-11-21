@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,16 +37,20 @@ public class ItemController {
     private UserService userService;
 
 
+
     @ApiOperation(value = "Say hi", notes = "Simple hello endpoint for testing purposes")
-    @GetMapping("/hi")
+    @GetMapping("/admin")
+    @PreAuthorize("hasRole('ROLE_ADMIN')") // 只有角色为 ADMIN 的用户可以访问
     public R hi() {
-        return R.ok("Hello, world!");
+        return R.ok("Hello, ADMIN!");
     }
 
 
-    @GetMapping("/aa")
+    @GetMapping("/user")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public R a() {
-        return R.ok("Hello, world!");
+
+        return R.ok("user");
     }
 
 
