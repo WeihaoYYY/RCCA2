@@ -1,7 +1,10 @@
 package com.example.rcca2.DTO;
 
 
+import com.example.rcca2.Entities.Role;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class UserDetailsDTO {
@@ -12,7 +15,7 @@ public class UserDetailsDTO {
 
     private String email;
 
-    private String role;
+    private List<Role> roles;
 
     private boolean enabled;
 

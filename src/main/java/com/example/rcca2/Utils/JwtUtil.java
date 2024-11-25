@@ -77,7 +77,7 @@ import java.util.UUID;
     }
 
     public static void main(String[] args) throws Exception {
-        String jwt = createJWT("123");
+        String jwt = createJWT("bb");
         System.out.println(jwt);
         String token = "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJmMzNkZjJmZWYzMDE0NzcwYTViMzRmMDI5MTViZTkyMiIsInN1YiI6IjEyMyIsImlzcyI6Imh1YW5mIiwiaWF0IjoxNzMxNTQ3OTcyLCJleHAiOjE3MzE1NTE1NzJ9.DohDXzSAH9sPCbhsUnj9oUfm68Zh5vGRdTCpKwYYygs";
         Claims claims = parseJWT(token);

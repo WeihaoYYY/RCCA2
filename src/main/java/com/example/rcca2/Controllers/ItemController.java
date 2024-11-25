@@ -40,14 +40,14 @@ public class ItemController {
 
     @ApiOperation(value = "Say hi", notes = "Simple hello endpoint for testing purposes")
     @GetMapping("/admin")
-    @PreAuthorize("hasRole('ROLE_ADMIN')") // 只有角色为 ADMIN 的用户可以访问
+    @PreAuthorize("hasRole('ADMIN')") // 只有角色为 ADMIN 的用户可以访问
     public R hi() {
         return R.ok("Hello, ADMIN!");
     }
 
 
     @GetMapping("/user")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('USER')")
     public R a() {
 
         return R.ok("user");
@@ -56,6 +56,7 @@ public class ItemController {
 
 
     @PostMapping("/user/login")
+    @CrossOrigin(origins = "http://localhost:3000")
     public R login(@RequestBody User user) {
 
         return userService.login(user);
@@ -72,6 +73,7 @@ public class ItemController {
     * 2. 返回R对象，其中包含了ItemDetailsDTO列表
      */
     @GetMapping("/index")
+    @PreAuthorize("permitAll()")
     @ApiOperation(value = "Get item list for homepage", notes = "Fetches the list of items to be displayed on the homepage")
     public R<List<ItemDetailsDTO>> index() {
         return R.ok(itemService.homeList());

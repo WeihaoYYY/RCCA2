@@ -9,6 +9,7 @@ import com.example.rcca2.Services.UserService;
 import com.example.rcca2.Utils.JwtUtil;
 import com.example.rcca2.Utils.RedisCache;
 import com.example.rcca2.common.R;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.logging.Logger;
 
 @Service
 @Transactional
@@ -87,9 +89,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         Map<String, String > map = new HashMap<>();
         map.put("token", jwt);
 
+
         //2. 把完整的用户信息存入redis中，userId作为key
         redisCache.setCacheObject("login:"+id, loginUser);
-
 
         return R.ok("Login In Successful - UserServiceImpl", map);
 
@@ -121,12 +123,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepo.findById(id).orElse(null);
     }
 
+
+
     @Override
-    public UserDetailsDTO findDTOByName(String name) {
-        return null;
-    }
-
-
     public UserDetailsDTO findDTOById(Long id) {
         Optional<User> user = userRepo.findById(id);
         if (user.isPresent()) {
@@ -136,6 +135,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             userDetailsDTO.setEmail(user.get().getEmail());
             userDetailsDTO.setEnabled(user.get().isEnabled());
             userDetailsDTO.setAvatarUrl(user.get().getAvatarUrl());
+            userDetailsDTO.setRoles(user.get().getRoles());
             return userDetailsDTO;
         }
 

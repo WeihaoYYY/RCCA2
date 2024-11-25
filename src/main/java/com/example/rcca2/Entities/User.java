@@ -1,6 +1,8 @@
 package com.example.rcca2.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -39,7 +41,10 @@ public class User{
             inverseJoinColumns = @JoinColumn(name = "rid") // Role 对应的列
     )
     @ToString.Exclude // 避免在 toString() 中输出实体类
+//    @JsonManagedReference
+    @JsonIgnore
     private List<Role> roles;
+
 
     private boolean enabled = true;
 

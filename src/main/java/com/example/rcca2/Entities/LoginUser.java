@@ -42,7 +42,7 @@ public class LoginUser implements UserDetails {
         }
         // 将 User 的角色转换为权限集合（GrantedAuthority），注意角色前缀为 "ROLE_"
         authorities = user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName().toUpperCase()))
                 .collect(Collectors.toList());
         return authorities;
     }
