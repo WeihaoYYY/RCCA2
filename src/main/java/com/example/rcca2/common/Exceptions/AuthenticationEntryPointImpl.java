@@ -28,7 +28,7 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
         //ResponseResult result = new ResponseResult(HttpStatus.UNAUTHORIZED.value(), "UNAUTHORIZED Login - AuthenticationEntryPointImpl");
         //把上面那行拿到的result对象转换为JSON字符串
         String json = JSON.toJSONString(R.error("Error Code " + HttpStatus.FORBIDDEN.value()
-                + " : UNAUTHORIZED Login - AuthenticationEntryPointImpl \n" + request.getRequestURL()));
+                + " : UNAUTHORIZED Login - AuthenticationEntryPointImpl: " + request.getRequestURL()));
         //WebUtils是我们在utils目录写好的类
         WebUtils.renderString(response,json);
     }

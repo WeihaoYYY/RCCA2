@@ -74,10 +74,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     .antMatchers("/item/user/login").permitAll()
                     .antMatchers("/item/index").permitAll() // 放行 /item/index
                     .antMatchers("/detail/**").permitAll()
-                    .antMatchers("/static/**").hasRole("USER")
-                    .antMatchers("/static/login.html").permitAll()
+                    .antMatchers("/js/**", "/css/**", "/images/**", "/**/*.html").permitAll() // 放行所有静态资源
+//                    .antMatchers("/login.html").permitAll()
                     // 除上面外的所有请求全部需要鉴权认证
-                    .anyRequest().authenticated();
+                    .anyRequest().permitAll();
+//                    .anyRequest().authenticated();
 
             //---------------------------认证过滤器的实现----------------------------------
 
