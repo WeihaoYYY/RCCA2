@@ -1,12 +1,14 @@
 package com.example.rcca2.Controllers;
 
 //import jakarta.annotation.security.RolesAllowed;
+import com.example.rcca2.DTO.UserDetailsDTO;
 import com.example.rcca2.Entities.Administrator;
 import com.example.rcca2.Entities.Item;
 import com.example.rcca2.Entities.User;
 import com.example.rcca2.Repository.UserRepository;
 import com.example.rcca2.Services.ItemService;
 import com.example.rcca2.Services.UserService;
+import com.example.rcca2.common.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +30,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 @Slf4j
-@Controller
+@RestController
 //@RolesAllowed("ADMIN")
 @RequestMapping("/user")
 public class UserController {
@@ -55,6 +57,11 @@ public class UserController {
     @GetMapping("/findAll")
     public List<Item> findAll() {
         return itemService.findAll();
+    }
+
+    @GetMapping("/findDTOById/{id}")
+    public R<UserDetailsDTO> findUserById(@PathVariable("id") Long id) {
+        return R.ok(userService.findDTOById(id));
     }
 
 /*

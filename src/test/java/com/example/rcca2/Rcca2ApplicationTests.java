@@ -6,6 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,6 +34,8 @@ class Rcca2ApplicationTests {
             assertNotNull(databaseProductName, "Database product name should not be null");
         }
     }
+
+
 
 //    @Test
 //    void s3() {

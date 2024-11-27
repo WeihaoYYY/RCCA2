@@ -1,11 +1,15 @@
 package com.example.rcca2.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -30,7 +34,17 @@ public class User{
 
     private String answer;
 
-    private String role = "USER";
+    @ManyToMany(fetch = FetchType.EAGER) // 使用 EAGER 加载角色信息
+    @JoinTable(
+            name = "user_roles", // 中间表的名称
+            joinColumns = @JoinColumn(name = "uid"), // User 对应的列
+            inverseJoinColumns = @JoinColumn(name = "rid") // Role 对应的列
+    )
+    @ToString.Exclude // 避免在 toString() 中输出实体类
+//    @JsonManagedReference
+    @JsonIgnore
+    private List<Role> roles;
+
 
     private boolean enabled = true;
 

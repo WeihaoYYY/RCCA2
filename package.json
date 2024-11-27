@@ -1,0 +1,17 @@
+{
+  "name": "rcca2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WeihaoYYY/RCCA2.git"
+  },
+  "private": true,
+  "dependencies": {
+    "axios": "^1.7.7"
+  }
+}

@@ -20,7 +20,8 @@ public interface UserService extends UserDetailsService {
 
     public User findById(Long id);
 
-    public UserDetailsDTO findDTOByName(String name);
+
+    public UserDetailsDTO findDTOById(Long id);
 
     public User findByName(String name);
 

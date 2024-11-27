@@ -27,7 +27,8 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
         //ResponseResult是我们在domain目录写好的实体类。HttpStatus是spring提供的枚举类，UNAUTHORIZED表示401状态码
         //ResponseResult result = new ResponseResult(HttpStatus.UNAUTHORIZED.value(), "UNAUTHORIZED Login - AuthenticationEntryPointImpl");
         //把上面那行拿到的result对象转换为JSON字符串
-        String json = JSON.toJSONString(R.error("Error Code " + HttpStatus.FORBIDDEN.value() + " : UNAUTHORIZED Login - AuthenticationEntryPointImpl"));
+        String json = JSON.toJSONString(R.error("Error Code " + HttpStatus.FORBIDDEN.value()
+                + " : UNAUTHORIZED Login - AuthenticationEntryPointImpl: " + request.getRequestURL()));
         //WebUtils是我们在utils目录写好的类
         WebUtils.renderString(response,json);
     }

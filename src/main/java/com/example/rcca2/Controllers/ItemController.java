@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,24 +37,30 @@ public class ItemController {
     private UserService userService;
 
 
+
     @ApiOperation(value = "Say hi", notes = "Simple hello endpoint for testing purposes")
-    @GetMapping("/hi")
+    @GetMapping("/admin")
+    @PreAuthorize("hasRole('ADMIN')") // 只有角色为 ADMIN 的用户可以访问
     public R hi() {
-        return R.ok("Hello, world!");
+        return R.ok("Hello, ADMIN!");
     }
 
 
-    @GetMapping("/aa")
+    @GetMapping("/user")
+    @PreAuthorize("hasRole('USER')")
     public R a() {
-        return R.ok("Hello, world!");
+
+        return R.ok("user");
     }
 
 
 
     @PostMapping("/user/login")
+    @CrossOrigin(origins = "http://localhost:3000")
     public R login(@RequestBody User user) {
-
-        return userService.login(user);
+//        System.out.println("User Login: " + user);
+        R login = userService.login(user);
+        return login;
     }
 
     @RequestMapping("/user/logout")
@@ -67,6 +74,7 @@ public class ItemController {
     * 2. 返回R对象，其中包含了ItemDetailsDTO列表
      */
     @GetMapping("/index")
+    @PreAuthorize("permitAll()")
     @ApiOperation(value = "Get item list for homepage", notes = "Fetches the list of items to be displayed on the homepage")
     public R<List<ItemDetailsDTO>> index() {
         return R.ok(itemService.homeList());

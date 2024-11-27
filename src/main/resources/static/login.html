@@ -20,7 +20,14 @@
             padding: 2rem;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            width: 300px;
+            width: 400px;
+        }
+
+        .card-header {
+            background-color: lightgreen;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            padding: 1rem;
         }
 
         .login-container h2 {
@@ -78,33 +85,65 @@
 </head>
 <body>
 <div class="login-container">
-    <h2>Login</h2>
-    <form action="/user/login" method="POST">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Login</button>
-    </form>
-    <a href="#" class="forgot-password">Forgot Password?</a>
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title mb-0 text-center">Login</h2>
+        </div>
+        <div class="card-body">
+            <form id="login-form" action="/user/login" method="POST">
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="username" placeholder="Username" required>
+                </div>
+                <div class="mb-3">
+                    <input type="password" class="form-control" name="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Login</button>
+            </form>
+            <a href="#" class="d-block text-center mt-3 forgot-password">Forgot Password?</a>
+        </div>
+    </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="module" src="./js/axiosInterceptor.js"></script>
 <script>
-    document.querySelector('form').addEventListener('submit', function(e) {
+
+    document.querySelector('#login-form').addEventListener('submit', async function(e) {
         e.preventDefault();
-        fetch('/user/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: new URLSearchParams(new FormData(e.target))
-        })
-            .then(response => {
-                if (response.ok) {
-                    window.location.href = '/user/index';
-                } else {
-                    alert('Invalid credentials');
+        try {
+            // 请求A: 登录获取Token
+            const response = await axios.post('/item/user/login', {
+                name: e.target.username.value,
+                password: e.target.password.value
+            }, {
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8',
                 }
-            })
-            .catch(error => console.error('Error:', error));
+            });
+
+            const token = response.data.data.token; // 假设返回的数据包含 token 字段
+
+            // 将 Token 存储在 localStorage 中
+            localStorage.setItem('jwtToken', token);
+
+            // 请求B: 使用配置好的 axiosInstance 发起请求，跳转页面或获取其他数据
+            //const responseB = await axiosInstance.get('/submission.html');
+
+            // 跳转到 submission 页面
+            window.location.href = '/submission.html';
+
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Invalid credentials or an error occurred');
+        }
     });
 </script>
+
+<!-- JAVASCRIPT -->
+<!--<script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>-->
+<!--<script src="assets/libs/simplebar/simplebar.min.js"></script>-->
+<!--<script src="assets/libs/node-waves/waves.min.js"></script>-->
+<!--<script src="assets/libs/feather-icons/feather.min.js"></script>-->
+<!--<script src="assets/js/plugins.js"></script>-->
 </body>
 </html>

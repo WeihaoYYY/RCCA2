@@ -17,33 +17,43 @@ import java.util.stream.Collectors;
 //重写Spring Security的登录验证UserDetail类
 @Data
 @NoArgsConstructor
-//@AllArgsConstructor
+@AllArgsConstructor
 public class LoginUser implements UserDetails {
 
     private User user;
 
-    private List<String> permissions;
+
 
     public LoginUser(User user) {
         this.user = user;
     }
 
-    public LoginUser(User user, List<String> permissions) {
-        this.user = user;
-        this.permissions = permissions;
+
+    //我们把这个List写到外面这里了，注意成员变量名一定要是authorities，不然会出现奇奇怪怪的问题
+    @JSONField(serialize = false) //这个注解的作用是不让下面那行的成员变量序列化存入redis，避免redis不支持而报异常
+    private List<SimpleGrantedAuthority> authorities;
+
+
+    // 重写 UserDetails 的 getAuthorities 方法
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (authorities != null) {
+            return authorities;
+        }
+        // 将 User 的角色转换为权限集合（GrantedAuthority），注意角色前缀为 "ROLE_"
+        authorities = user.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName().toUpperCase()))
+                .collect(Collectors.toList());
+        return authorities;
     }
 
-/*    //我们把这个List写到外面这里了，注意成员变量名一定要是authorities，不然会出现奇奇怪怪的问题
-    @JSONField(serialize = false) //这个注解的作用是不让下面那行的成员变量序列化存入redis，避免redis不支持而报异常
-    private List<SimpleGrantedAuthority> authorities;*/
 
-    @Override
+/*    @Override
     //用于返回权限信息。现在我们正在学'认证'，'权限'后面才学。所以返回null即可
     //当要查询用户信息的时候，我们不能单纯返回null，要重写这个方法，作用是封装权限信息
     public Collection<? extends GrantedAuthority> getAuthorities() { //重写GrantedAuthority接口的getAuthorities方法
-        return null;
 
-        /* 第一种权限集合的转换写法如下，传统的方式
+        *//* 第一种权限集合的转换写法如下，传统的方式
         //把xxpermissions中的String类型的权限信息(也就是"test","adminAuth","huanfAuth")封装成SimpleGrantedAuthority对象
         //List<GrantedAuthority> authorities = new ArrayList<>(); //简化这行如下一行，我们把authorities成员变量写到外面了
         authorities = new ArrayList<>();
@@ -51,11 +61,11 @@ public class LoginUser implements UserDetails {
             SimpleGrantedAuthority yyauthority = new SimpleGrantedAuthority(yypermission);
             authorities.add(yyauthority);
         }
-        */
+        *//*
 
-        /* 第二种权限集合的转换写法如下，函数式编程 + stream流 的方式，双引号表示方法引用 */
+        *//* 第二种权限集合的转换写法如下，函数式编程 + stream流 的方式，双引号表示方法引用 *//*
         //当authorities集合为空，就说明是第一次，就需要转换，当不为空就说明不是第一次，就不需要转换直接返回
-/*        if(authorities != null){ //严谨来说这个if判断是避免整个调用链中security本地线程变量在获取用户时的重复解析，和redis存取无关
+        if(authorities != null){ //严谨来说这个if判断是避免整个调用链中security本地线程变量在获取用户时的重复解析，和redis存取无关
             return authorities;
         }
         //为空的话就会执行下面的转换代码
@@ -66,8 +76,8 @@ public class LoginUser implements UserDetails {
                 .collect(Collectors.toList());
 
         //最终返回转换结果
-        return authorities;*/
-    }
+        return authorities;
+    }*/
 
     @Override
     public String getPassword() {
@@ -96,7 +106,7 @@ public class LoginUser implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return user.isEnabled();
     }
 }
 

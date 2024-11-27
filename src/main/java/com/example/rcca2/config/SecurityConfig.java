@@ -5,6 +5,8 @@ import com.example.rcca2.filter.JwtAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -70,8 +72,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     .authorizeRequests()
                     // 对于登录接口 anonymous表示允许匿名访问
                     .antMatchers("/item/user/login").permitAll()
+                    .antMatchers("/item/index").permitAll() // 放行 /item/index
+                    .antMatchers("/detail/**").permitAll()
+                    .antMatchers("/js/**", "/css/**", "/images/**", "/**/*.html").permitAll() // 放行所有静态资源
+//                    .antMatchers("/login.html").permitAll()
                     // 除上面外的所有请求全部需要鉴权认证
-                    .anyRequest().authenticated();
+                    .anyRequest().permitAll();
+//                    .anyRequest().authenticated();
 
             //---------------------------认证过滤器的实现----------------------------------
 
@@ -88,6 +95,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     .accessDeniedHandler(accessDeniedHandler);
 
 
+        }
+
+        @Bean
+        public RoleHierarchy roleHierarchy() {
+            RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
+            roleHierarchy.setHierarchy("ROLE_ADMIN > ROLE_USER"); // 定义角色层次
+            return roleHierarchy;
         }
 
         //    @Override
