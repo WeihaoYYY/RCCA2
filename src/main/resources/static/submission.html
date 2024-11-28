@@ -437,7 +437,7 @@
 <script>
     async function changeStatus(itemId, status) {
         try {
-            const response = await window.axiosInstance.put(`/admin/status/${itemId}/${status}`);
+            const response = await window.axiosInstance.put(`/api/admin/status/${itemId}/${status}`);
             if (response.data.code === 1) {
                 window.location.reload();
             }
@@ -471,7 +471,7 @@
 
         async function getItemList() {
             try {
-                const response = await axiosInstance.get('/admin/itemList');
+                const response = await axiosInstance.get('/api/admin/itemList');
                 if (response.status === 200) {
                     const data = response.data.data;
                     displayData(data);
@@ -493,7 +493,7 @@
                 const decodedToken = jwt_decode(token);
                 const userId = decodedToken.sub; // 假设 token 中有用户 ID 字段
 
-                const response = await axiosInstance.get(`/user/findDTOById/${userId}`);
+                const response = await axiosInstance.get(`/api/user/findDTOById/${userId}`);
                 if (response.status === 200) {
                     const user = response.data.data;
 
