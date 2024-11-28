@@ -29,7 +29,7 @@ public class Rcca2Application {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("++++++Redis host: " + redisHost + " ++++++");
+        System.out.println("++++++Redis host: " + redisHost + " ++++++");
     }
 
 }
