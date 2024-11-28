@@ -18,9 +18,18 @@ import javax.annotation.PostConstruct;
 @RequestMapping("/api")
 public class Rcca2Application {
 
+    @Value("${spring.redis.host}")
+    private String redisHost;
+
     public static void main(String[] args) {
         SpringApplication.run(Rcca2Application.class, args);
         System.out.println("RCCA2 application started");
+    }
+
+
+    @PostConstruct
+    public void postConstruct() {
+        log.info("++++++Redis host: " + redisHost + " ++++++");
     }
 
 }
