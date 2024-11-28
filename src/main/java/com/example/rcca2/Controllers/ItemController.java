@@ -53,10 +53,15 @@ public class ItemController {
         return R.ok("user");
     }
 
+    @GetMapping("/testing")
+    public R testing() {
+        return R.ok("Testing");
+    }
+
 
 
     @PostMapping("/user/login")
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     public R login(@RequestBody User user) {
 //        System.out.println("User Login: " + user);
         R login = userService.login(user);
