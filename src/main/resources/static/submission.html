@@ -138,8 +138,8 @@
                             <!-- item-->
                             <a class="dropdown-item" href="pages-profile.html"><i
                                     class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span
-                                    class="align-middle">Profile</span></a>
-                            <a class="dropdown-item" href="/login.html"><i
+                                    class="align-middle">Profile</span></a>  <!--在 login.html URL 后添加随机参数来避免缓存-->
+                            <a class="dropdown-item" href="/api/logout"><i
                                     class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span
                                     class="align-middle" data-key="t-logout">Logout</span></a>
                         </div>
@@ -437,7 +437,7 @@
 <script>
     async function changeStatus(itemId, status) {
         try {
-            const response = await window.axiosInstance.put(`/api/admin/status/${itemId}/${status}`);
+            const response = await window.axiosInstance.put(`/admin/status/${itemId}/${status}`);
             if (response.data.code === 1) {
                 window.location.reload();
             }
@@ -471,7 +471,7 @@
 
         async function getItemList() {
             try {
-                const response = await axiosInstance.get('/api/admin/itemList');
+                const response = await axiosInstance.get('/admin/itemList');
                 if (response.status === 200) {
                     const data = response.data.data;
                     displayData(data);
@@ -493,7 +493,7 @@
                 const decodedToken = jwt_decode(token);
                 const userId = decodedToken.sub; // 假设 token 中有用户 ID 字段
 
-                const response = await axiosInstance.get(`/api/user/findDTOById/${userId}`);
+                const response = await axiosInstance.get(`/user/findDTOById/${userId}`);
                 if (response.status === 200) {
                     const user = response.data.data;
 

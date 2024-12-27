@@ -19,7 +19,11 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-    /**
+import javax.servlet.http.HttpServletResponse;
+
+import static javax.management.Query.and;
+
+/**
      * @author 35238
      * @date 2023/7/11 0011 22:02
      */
@@ -74,11 +78,25 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     .antMatchers("/item/user/login").permitAll()
                     .antMatchers("/item/index").permitAll() // 放行 /item/index
                     .antMatchers("/detail/**").permitAll()
-                    .antMatchers("/js/**", "/css/**", "/images/**", "/**/*.html").permitAll() // 放行所有静态资源
+                    .antMatchers("/js/**", "/assets/**", "/images/**", "/**/*.html").permitAll() // 放行所有静态资源
 //                    .antMatchers("/login.html").permitAll()
                     // 除上面外的所有请求全部需要鉴权认证
-                    .anyRequest().permitAll();
-//                    .anyRequest().authenticated();
+//                    .anyRequest().permitAll();
+                    .anyRequest().authenticated()
+                    .and()
+                    // 配置注销
+                    .logout()
+                    .logoutUrl("/api/logout")
+                    .logoutSuccessUrl("/") // 注销成功后重定向到登录页面
+/*                    .logoutSuccessHandler((request, response, authentication) -> {
+                        // 对于前后端分离项目，注销后可以自定义返回内容
+                        response.setStatus(HttpServletResponse.SC_OK);
+                        response.getWriter().write("{\"message\": \"Logout successful\"}");
+                    })*/
+                    .invalidateHttpSession(true)
+                    .clearAuthentication(true)
+                    .permitAll();
+
 
             //---------------------------认证过滤器的实现----------------------------------
 
